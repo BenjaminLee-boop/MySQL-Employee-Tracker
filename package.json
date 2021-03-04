@@ -1,0 +1,25 @@
+{
+  "name": "MySQL-Employee-Tracker",
+  "version": "1.0.0",
+  "description": "This is an project utilazing the use of mysql and nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenjaminLee-boop/MySQL-Employee-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenjaminLee-boop/MySQL-Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/BenjaminLee-boop/MySQL-Employee-Tracker#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "inquirer": "^8.0.0",
+    "knex": "^0.95.0"
+  }
+}
