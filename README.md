@@ -18,6 +18,14 @@ npm seed.js
 npm index.js
 ```
 
+## Screenshot & Demo Video
+
+![Screen](https://via.placeholder.com/1200x800 "Screen Shot 1")
+![Screen](https://via.placeholder.com/1200x800 "Screen Shot 2")
+![Screen](https://via.placeholder.com/1200x800 "Screen Shot 3")
+
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+
 ## Change Log
 
 **4/3/2021**
