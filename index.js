@@ -1,25 +1,10 @@
 require("dotenv").config();
 
-const knex = require("knex")({
-  client: "mysql",
-  connection: {
-    host: "127.0.0.1",
-    user: process.env.DB_UNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-  },
-});
+const dbUtil = require("./utils/db_create_schema");
 
-knex.schema
-  .createTable("department", (table) => {
-    table.increments("id").primary();
-    table.string("name");
-  })
-  .then(() => console.log("table created"))
-  .catch((err) => {
-    console.log(err);
-    throw err;
-  });
+const knex = require("./utils/db_connect");
+
+dbUtil.genDepartment(knex);
 
 knex.schema
   .createTable("role", (table) => {
@@ -27,6 +12,19 @@ knex.schema
     table.string("title");
     table.decimal("salary", 8, 4);
     table.integer("department_id").unsigned().references("department.id");
+  })
+  .then(() => console.log("table created"))
+  .catch((err) => {
+    console.log(err);
+    throw err;
+  });
+knex.schema
+  .createTable("employee", (table) => {
+    table.increments("id").primary();
+    table.string("firstName");
+    table.string("LastName");
+    table.integer("role_id").unsigned().references("role.id");
+    table.integer("manager_id").unsigned();
   })
   .then(() => console.log("table created"))
   .catch((err) => {
