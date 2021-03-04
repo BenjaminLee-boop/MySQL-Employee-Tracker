@@ -31,3 +31,4 @@ npm index.js
 **4/3/2021**
 
 - initial Commit and installing all the required Dependencies.
+- Created the Knex Schema for the Roles And Department Tables
