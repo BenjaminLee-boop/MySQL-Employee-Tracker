@@ -32,3 +32,8 @@ npm index.js
 
 - initial Commit and installing all the required Dependencies.
 - Created the Knex Schema for the Roles And Department Tables
+
+**6/3/2021**
+
+- More seeding added
+- View Departments function working.

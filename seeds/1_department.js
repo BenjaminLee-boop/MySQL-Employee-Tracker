@@ -5,8 +5,11 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex("department").insert([
-        { name: "front-end" },
-        { name: "back-end" },
+        { name: "Production" },
+        { name: "Research and Development" },
+        { name: "Human Resource Management" },
+        { name: "Accounting and Finance" },
+        { name: "Purchasing" },
       ]);
     });
 };
