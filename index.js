@@ -96,4 +96,6 @@ function addDepartment() {
     });
 }
 
+function removeDepartment(arr) {}
+
 mainMenu();
