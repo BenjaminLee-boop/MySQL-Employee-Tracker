@@ -37,3 +37,6 @@ npm index.js
 
 - More seeding added
 - View Departments function working.
+- Added Add departments Functionality
+
+**7/3/2021**
