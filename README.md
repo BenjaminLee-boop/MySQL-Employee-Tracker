@@ -40,3 +40,6 @@ npm index.js
 - Added Add departments Functionality
 
 **7/3/2021**
+-Finished Departments
+
+- Started working on Employee functions
