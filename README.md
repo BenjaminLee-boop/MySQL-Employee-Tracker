@@ -44,3 +44,7 @@ npm index.js
 -Finished Departments
 
 - Started working on Employee functions
+  **8/3/2021**
+  -added Employee Features
+  -Added Role Based Features
+- Added updating roles for Employees
