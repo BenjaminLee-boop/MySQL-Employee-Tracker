@@ -16,8 +16,13 @@ async function addEmployeet(x, y) {
 async function removeEmplyees(x) {
   return await Employee.query().delete().where({ fullName: x });
 }
+
+async function updateEmplyee(x, y) {
+  return await Employee.query().patch({ role_id: y }).where({ fullName: x });
+}
 module.exports = {
   employeeList: employeeList,
   addEmployeet: addEmployeet,
   removeEmplyees: removeEmplyees,
+  updateEmplyee: updateEmplyee,
 };

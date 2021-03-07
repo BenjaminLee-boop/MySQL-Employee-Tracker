@@ -3,10 +3,10 @@ const inquirer = require("inquirer");
 const dbStuff = require("./utils/dbStuff");
 const department = require("./department/index");
 const employee = require("./employee");
+const role = require("./role/index");
 
 const inquirerMenu = require("./utils/inquier");
 function mainMenu() {
-  console.clear();
   inquirer
     .prompt([
       {
@@ -14,19 +14,20 @@ function mainMenu() {
         type: "list",
         message: "What would you like to do?:",
         choices: [
-          "View All employees",
+          "View All employees", //Done
           "View All employees by department",
           "View All employees by manager",
-          "Add Employee",
-          "Remove Employee",
-          "Update Employee role",
+          "Add Employee", //Done
+          "Remove Employee", //Done
+          "Update Employee role", //Done
           "Update Employee Manager",
-          "Add Role",
-          "Remove Role",
-          "View Departments",
-          "Add Department",
-          "Remove Department",
-          "Exit",
+          "Add Role", // Done
+          "View Role", //Done
+          "Remove Role", //Done
+          "View Departments", //Done
+          "Add Department", //Done
+          "Remove Department", //Done
+          "Exit", //Done
         ],
       },
     ])
@@ -50,6 +51,18 @@ function mainMenu() {
           break;
         case "Remove Employee":
           removeEmployee();
+          break;
+        case "View Role":
+          roleView();
+          break;
+        case "Add Role":
+          addRole();
+          break;
+        case "Remove Role":
+          removeRole();
+          break;
+        case "Update Employee role":
+          updateEmployeeRole();
           break;
         case "Exit":
           process.exit(1);
@@ -101,7 +114,6 @@ async function removeDepartment() {
       mainMenu();
     });
 }
-
 async function employeeView() {
   const data = await employee.employeeList();
   let arr = [];
@@ -121,7 +133,6 @@ async function employeeView() {
       mainMenu();
     });
 }
-
 async function addEmployee(params) {
   inquirer
     .prompt([
@@ -159,5 +170,100 @@ async function removeEmployee() {
       employee.removeEmplyees(res);
       mainMenu();
     });
+}
+async function roleView() {
+  const data = await role.roleList();
+  let x = [];
+  data.forEach((e) => {
+    x.push(e["title"]);
+  });
+  console.log(data);
+  inquirer
+    .prompt([
+      {
+        name: "mainMenuOptions",
+        type: "list",
+        message: "Department List",
+        choices: x,
+      },
+    ])
+    .then((e) => {
+      mainMenu();
+    });
+}
+async function addRole() {
+  const data = await department.departmentList();
+  const answers = await inquirer.prompt([
+    {
+      name: "title",
+      message: "Enter your Role name.",
+    },
+    {
+      name: "salary",
+      message: "Enter Role Salary",
+    },
+    {
+      name: "departmentList",
+      type: "list",
+      message: "Department List",
+      choices: data,
+    },
+  ]);
+  const p = await department.getDepartmentID(answers.departmentList);
+  role.addRole(answers.title, answers.salary, p[0]);
+  mainMenu();
+}
+async function removeRole() {
+  const data = await role.roleList();
+  let arr = [];
+  console.log(data);
+  data.forEach((e) => {
+    arr.push(e.title);
+  });
+  console.log(arr);
+  const answers = await inquirer.prompt([
+    {
+      name: "departmentList",
+      type: "list",
+      message: "Role to Remove?",
+      choices: arr,
+    },
+  ]);
+  role.removeRole(answers.departmentList);
+
+  mainMenu();
+}
+async function updateEmployeeRole() {
+  const rl = await role.roleList();
+  const el = await employee.employeeList();
+  let elarr = [];
+  let rlarr = [];
+  el.forEach((e) => {
+    elarr.push(e["fullName"]);
+  });
+  rl.forEach((e) => {
+    rlarr.push(e["title"]);
+  });
+  const answers = await inquirer.prompt([
+    {
+      name: "employeeList",
+      type: "list",
+      message: "Emplyee to add Role to?",
+      choices: elarr,
+    },
+    {
+      name: "roleList",
+      type: "list",
+      message: "Emplyee to add Role to?",
+      choices: rlarr,
+    },
+  ]);
+  let arrFound = rl.filter(function (item) {
+    if (item["title"] == answers.roleList) {
+      return item;
+    }
+  });
+  employee.updateEmplyee(answers.employeeList, arrFound[0]["id"]);
+  mainMenu();
 }
 mainMenu();

@@ -36,10 +36,11 @@ npm index.js
 **6/3/2021**
 
 - More seeding added
-- View Departments function working.
+- View Departments function working
 - Added Add departments Functionality
 
 **7/3/2021**
+
 -Finished Departments
 
 - Started working on Employee functions
