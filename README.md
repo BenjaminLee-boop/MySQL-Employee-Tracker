@@ -41,7 +41,7 @@ npm index.js
 
 **7/3/2021**
 
--Finished Departments
+- Finished Departments
 
 - Started working on Employee functions
   **8/3/2021**
