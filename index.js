@@ -1,6 +1,7 @@
 require("dotenv").config();
 const inquirer = require("inquirer");
 const dbStuff = require("./utils/dbStuff");
+const department = require("./department/index");
 
 const inquirerMenu = require("./utils/inquier");
 function mainMenu() {
@@ -32,70 +33,63 @@ function mainMenu() {
       console.log(answer.mainMenuOptions);
       switch (answer.mainMenuOptions) {
         case "View Departments":
-          let data = dbStuff.getListOfAllDepartments();
-          let dataArray = [];
-          data.then((r) => {
-            r.forEach((element) => {
-              dataArray.push(element["name"]);
-            });
-            departmentView(dataArray);
-          });
-
-          break;
-        case "View All employees":
-          //View ALl Employees In the database
-          break;
-        case "Update Employee Manager":
-          console.log("Update Employee Manager");
+          departmentView();
           break;
         case "Add Department":
           addDepartment();
           break;
-        case "View All employees by manager":
-          console.log("View All employees by manager");
+        case "Remove Department":
+          removeDepartment();
           break;
-        case "Add Employee":
-          console.log("Add Employee");
-          break;
-        case "Remove Employee":
-          console.log("Remove Employee");
-          break;
-        case "Update Employee role":
-          console.log("Update Employee role");
-          break;
+        case "Exit":
+          process.exit(1);
       }
     });
 }
-function departmentView(arr) {
-  console.clear();
+async function departmentView() {
+  const data = await department.departmentList();
   inquirer
     .prompt([
       {
         name: "mainMenuOptions",
         type: "list",
         message: "Department List",
-        choices: arr,
+        choices: data,
       },
     ])
     .then((e) => {
       mainMenu();
     });
 }
-
-function addDepartment() {
+async function addDepartment() {
   inquirer
     .prompt([
       {
-        name: "departmentName",
-        message: "Enter the department you would like to add?",
+        name: "Department",
+        message: "Name of Department you would like to add",
       },
     ])
-    .then((e) => {
-      dbStuff.addDepartment(e.departmentName);
+    .then((answers) => {
+      department.addDepartment(answers.Department);
       mainMenu();
     });
 }
-
-function removeDepartment(arr) {}
+async function removeDepartment() {
+  const data = await department.departmentList();
+  inquirer
+    .prompt([
+      {
+        name: "mainMenuOptions",
+        type: "list",
+        message: "Department List",
+        choices: data,
+      },
+    ])
+    .then((e) => {
+      console.log(e.mainMenuOptions);
+      department.removeDepartments(e.mainMenuOptions);
+      mainMenu();
+    });
+}
 
 mainMenu();
