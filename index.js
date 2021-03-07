@@ -2,6 +2,7 @@ require("dotenv").config();
 const inquirer = require("inquirer");
 const dbStuff = require("./utils/dbStuff");
 const department = require("./department/index");
+const employee = require("./employee");
 
 const inquirerMenu = require("./utils/inquier");
 function mainMenu() {
@@ -40,6 +41,15 @@ function mainMenu() {
           break;
         case "Remove Department":
           removeDepartment();
+          break;
+        case "View All employees":
+          employeeView();
+          break;
+        case "Add Employee":
+          addEmployee();
+          break;
+        case "Remove Employee":
+          removeEmployee();
           break;
         case "Exit":
           process.exit(1);
@@ -92,4 +102,62 @@ async function removeDepartment() {
     });
 }
 
+async function employeeView() {
+  const data = await employee.employeeList();
+  let arr = [];
+  data.forEach((e) => {
+    arr.push(e["firstName"] + " " + e["LastName"]);
+  });
+  inquirer
+    .prompt([
+      {
+        name: "mainMenuOptions",
+        type: "list",
+        message: "Department List",
+        choices: arr,
+      },
+    ])
+    .then((e) => {
+      mainMenu();
+    });
+}
+
+async function addEmployee(params) {
+  inquirer
+    .prompt([
+      {
+        name: "FirstName",
+        message: "Enter the first name for employee",
+      },
+      {
+        name: "lastName",
+        message: "Enter the Last name for employee",
+      },
+    ])
+    .then((answers) => {
+      employee.addEmployeet(answers.FirstName, answers.lastName);
+      mainMenu();
+    });
+}
+async function removeEmployee() {
+  const data = await employee.employeeList();
+  let arr = [];
+  data.forEach((e) => {
+    arr.push(e["firstName"] + " " + e["LastName"]);
+  });
+  inquirer
+    .prompt([
+      {
+        name: "mainMenuOptions",
+        type: "list",
+        message: "Emplyee list",
+        choices: arr,
+      },
+    ])
+    .then((e) => {
+      let res = e.mainMenuOptions;
+      employee.removeEmplyees(res);
+      mainMenu();
+    });
+}
 mainMenu();

@@ -4,10 +4,10 @@ require("dotenv").config();
 
 Model.knex(db);
 
-class Department extends Model {
+class Employee extends Model {
   static get tableName() {
-    return "department";
+    return "employee";
   }
 }
 
-module.exports = Department;
+module.exports = Employee;

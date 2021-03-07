@@ -27,8 +27,9 @@ exports.up = function (knex) {
       table.increments("id").primary();
       table.string("firstName");
       table.string("LastName");
-      table.integer("role_id").unsigned();
+      table.integer("role_id").unsigned().references("role.id");
       table.integer("manager_id").unsigned();
+      table.string("fullName");
     })
     .then(() => console.log("table created"))
     .catch((err) => {
