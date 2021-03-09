@@ -14,8 +14,9 @@ This is a project Displaying the use of NodeJs and Mysql. I have chosen in this 
 ## Usage
 
 ```zsh
-npm seed.js
-npm index.js
+npm install knex -g
+knex migrate:up
+knex seed:run
 ```
 
 ## Screenshot & Demo Video
