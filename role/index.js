@@ -14,8 +14,14 @@ async function addRole(x, y, b) {
 async function removeRole(x) {
   return await role.query().delete().where({ title: x });
 }
+
+async function viewRoleByDepartmentId(x) {
+  const Roles = await role.query().where({ department_id: x });
+  return Roles;
+}
 module.exports = {
   roleList: roleList,
   addRole: addRole,
   removeRole: removeRole,
+  viewRoleByDepartmentId: viewRoleByDepartmentId,
 };

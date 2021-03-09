@@ -3,12 +3,8 @@ const Department = require("./Department.model");
 require("dotenv").config();
 
 async function departmentList() {
-  let x = [];
   const Departments = await Department.query();
-  Departments.forEach((d) => {
-    x.push(d["name"]);
-  });
-  return x;
+  return Departments;
 }
 
 async function getDepartmentID(x) {

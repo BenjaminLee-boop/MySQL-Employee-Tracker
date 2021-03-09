@@ -2,8 +2,11 @@ require("dotenv").config();
 const Employee = require("./employee.model");
 
 async function employeeList() {
-  let x = [];
   const Employees = await Employee.query();
+  return Employees;
+}
+async function employeById(x) {
+  const Employees = await Employee.query().where({ role_id: x });
   return Employees;
 }
 async function addEmployeet(x, y) {
@@ -25,4 +28,5 @@ module.exports = {
   addEmployeet: addEmployeet,
   removeEmplyees: removeEmplyees,
   updateEmplyee: updateEmplyee,
+  employeById: employeById,
 };

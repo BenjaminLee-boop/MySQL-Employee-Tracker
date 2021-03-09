@@ -4,6 +4,7 @@ const dbStuff = require("./utils/dbStuff");
 const department = require("./department/index");
 const employee = require("./employee");
 const role = require("./role/index");
+const cTable = require("console.table");
 
 const inquirerMenu = require("./utils/inquier");
 function mainMenu() {
@@ -32,7 +33,6 @@ function mainMenu() {
       },
     ])
     .then((answer) => {
-      console.log(answer.mainMenuOptions);
       switch (answer.mainMenuOptions) {
         case "View Departments":
           departmentView();
@@ -64,6 +64,9 @@ function mainMenu() {
         case "Update Employee role":
           updateEmployeeRole();
           break;
+        case "View All employees by department":
+          viewByDepartment();
+          break;
         case "Exit":
           process.exit(1);
       }
@@ -71,31 +74,18 @@ function mainMenu() {
 }
 async function departmentView() {
   const data = await department.departmentList();
-  inquirer
-    .prompt([
-      {
-        name: "mainMenuOptions",
-        type: "list",
-        message: "Department List",
-        choices: data,
-      },
-    ])
-    .then((e) => {
-      mainMenu();
-    });
+  console.table(data);
+  mainMenu();
 }
 async function addDepartment() {
-  inquirer
-    .prompt([
-      {
-        name: "Department",
-        message: "Name of Department you would like to add",
-      },
-    ])
-    .then((answers) => {
-      department.addDepartment(answers.Department);
-      mainMenu();
-    });
+  const answers = await inquirer.prompt([
+    {
+      name: "Department",
+      message: "Name of Department you would like to add",
+    },
+  ]);
+  department.addDepartment(answers.Department);
+  mainMenu();
 }
 async function removeDepartment() {
   const data = await department.departmentList();
@@ -109,29 +99,14 @@ async function removeDepartment() {
       },
     ])
     .then((e) => {
-      console.log(e.mainMenuOptions);
       department.removeDepartments(e.mainMenuOptions);
       mainMenu();
     });
 }
 async function employeeView() {
   const data = await employee.employeeList();
-  let arr = [];
-  data.forEach((e) => {
-    arr.push(e["firstName"] + " " + e["LastName"]);
-  });
-  inquirer
-    .prompt([
-      {
-        name: "mainMenuOptions",
-        type: "list",
-        message: "Department List",
-        choices: arr,
-      },
-    ])
-    .then((e) => {
-      mainMenu();
-    });
+  console.table(data);
+  mainMenu();
 }
 async function addEmployee() {
   inquirer
@@ -173,23 +148,8 @@ async function removeEmployee() {
 }
 async function roleView() {
   const data = await role.roleList();
-  let x = [];
-  data.forEach((e) => {
-    x.push(e["title"]);
-  });
-  console.log(data);
-  inquirer
-    .prompt([
-      {
-        name: "mainMenuOptions",
-        type: "list",
-        message: "Department List",
-        choices: x,
-      },
-    ])
-    .then((e) => {
-      mainMenu();
-    });
+  console.table(data);
+  mainMenu();
 }
 async function addRole() {
   const data = await department.departmentList();
@@ -201,6 +161,7 @@ async function addRole() {
     {
       name: "salary",
       message: "Enter Role Salary",
+      type: "number",
     },
     {
       name: "departmentList",
@@ -216,11 +177,9 @@ async function addRole() {
 async function removeRole() {
   const data = await role.roleList();
   let arr = [];
-  console.log(data);
   data.forEach((e) => {
     arr.push(e.title);
   });
-  console.log(arr);
   const answers = await inquirer.prompt([
     {
       name: "departmentList",
@@ -264,6 +223,29 @@ async function updateEmployeeRole() {
     }
   });
   employee.updateEmplyee(answers.employeeList, arrFound[0]["id"]);
+  mainMenu();
+}
+async function viewByDepartment() {
+  let arry = [];
+  const departmentList = await department.departmentList();
+  departmentList.forEach((e) => arry.push(e["name"]));
+  const answear = await inquirer.prompt([
+    {
+      name: "mainMenuOptions",
+      type: "list",
+      message: "Department List",
+      choices: arry,
+    },
+  ]);
+
+  const id = await department.getDepartmentID(answear.mainMenuOptions);
+  const p = await role.viewRoleByDepartmentId(id);
+  try {
+    const employeeListByRole = await employee.employeById(p["0"]["id"]);
+    console.table(employeeListByRole);
+  } catch (error) {
+    mainMenu();
+  }
   mainMenu();
 }
 mainMenu();
