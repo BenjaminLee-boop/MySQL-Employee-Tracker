@@ -20,11 +20,11 @@ npm index.js
 
 ## Screenshot & Demo Video
 
-![Screen](https://via.placeholder.com/1200x800 "Screen Shot 1")
-![Screen](https://via.placeholder.com/1200x800 "Screen Shot 2")
-![Screen](https://via.placeholder.com/1200x800 "Screen Shot 3")
+![Screen](https://i.postimg.cc/44bN5ZMw/Screen-Shot-2021-03-09-at-4-57-33-pm.png "Screen Shot 1")
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+![Screen](https://i.postimg.cc/c4x1k2GW/Screen-Shot-2021-03-09-at-4-57-45-pm.png "Screen Shot 2")
+
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/HkkM4yb9SHw/0.jpg)](http://www.youtube.com/watch?v=HkkM4yb9SHw)
 
 ## Change Log
 
