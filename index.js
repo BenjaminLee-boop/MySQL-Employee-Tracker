@@ -16,7 +16,7 @@ function mainMenu() {
         message: "What would you like to do?:",
         choices: [
           "View All employees", //Done
-          "View All employees by department", // Working On
+          "View All employees by department", // Done
           "View All employees by manager", // Future Realese
           "Add Employee", //Done
           "Remove Employee", //Done
